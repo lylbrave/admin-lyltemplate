@@ -1,15 +1,17 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
-
-]
+  {
+    path: "/",
+    component: () => import("@/views/layout.vue"),
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
