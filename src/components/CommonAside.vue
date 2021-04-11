@@ -7,16 +7,22 @@
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
+    :collapse="!isCollapse"
   >
     <el-menu-item
       :index="item.path"
       v-for="item in noChildren"
       :key="item.path"
+      @click="clickMenu(item)"
     >
       <i :class="`el-icon-${item.icon}`"></i>
       <span slot="title">{{ item.label }}</span>
     </el-menu-item>
-    <el-submenu :index="item.path" v-for="item in hasChildren" :key="item.path">
+    <el-submenu
+      :index="item.label"
+      v-for="item in hasChildren"
+      :key="item.path"
+    >
       <template slot="title">
         <i :class="`el-icon-${item.icon}`"></i>
         <span>{{ item.label }}</span>
@@ -26,6 +32,7 @@
           :index="child.path"
           v-for="child in item.children"
           :key="child.path"
+          @click="clickMenu(item)"
           >{{ child.label }}</el-menu-item
         >
       </el-menu-item-group>
@@ -34,31 +41,36 @@
 </template>
 
 <script type="text/ecmascript-6">
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       asideMenu: [
         {
           path: "/",
+          name: "home",
           label: "首页",
           icon: "s-home",
         },
         {
           path: "/video",
+          name: "video",
           label: "视频管理",
           icon: "video-play",
         },
         {
           path: "/userManager",
+          name: "userManager",
           label: "用户管理",
           icon: "user",
         },
         {
           label: "其他",
+          name: "other",
           icon: "orange",
           children: [
-            { path: "/page1", label: "页面1" },
-            { path: "/page2", label: "页面2" },
+            { path: "/page1", name: "page1", label: "页面1" },
+            { path: "/page2", name: "page2", label: "页面2" },
           ],
         },
       ],
@@ -76,8 +88,20 @@ export default {
         return item.children;
       });
     },
+    ...mapState({
+      isCollapse: (state) => state.menu.isCollapse,
+    }),
   },
   methods: {
+    /**
+     * 选中目录
+     */
+    clickMenu(item) {
+      this.$router.push({
+        name: item.name,
+      });
+      this.$store.commit("selectMenu", item);
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -91,16 +115,20 @@ export default {
 <style scoped lang="scss" >
 .el-menu {
   height: 100%;
+  border: none;
+  overflow: hidden;
   .el-menu-item {
     padding: 0;
     text-align: start;
   }
+
   ::v-deep .el-submenu__title {
     padding: 0;
     text-align: start;
   }
-  // .el-menu-item.is-active {
-  //   padding-left: 20px;
-  // }
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>

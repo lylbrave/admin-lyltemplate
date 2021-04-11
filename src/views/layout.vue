@@ -1,9 +1,10 @@
 <template>
   <el-container style="height: 100%">
-    <el-aside width="160px"><common-aside></common-aside></el-aside>
+    <el-aside width="auto"><common-aside></common-aside></el-aside>
     <el-container>
       <el-header><common-header></common-header></el-header>
-      <el-main>ssss</el-main>
+      <common-tab></common-tab>
+      <el-main> <router-view /></el-main>
     </el-container>
   </el-container>
 </template>
@@ -11,6 +12,7 @@
 <script type="text/ecmascript-6">
 import CommonHeader from "../components/CommonHeader";
 import CommonAside from "../components/CommonAside";
+import CommonTab from "../components/CommonTab";
 export default {
   data() {
     return {};
@@ -18,8 +20,13 @@ export default {
   components: {
     CommonHeader,
     CommonAside,
+    CommonTab,
   },
 };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.el-header {
+  background-color: #333;
+}
+</style>
