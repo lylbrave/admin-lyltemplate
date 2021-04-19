@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 //全局配置
 import "@/assets/scss/reset.scss";
+import './icons' 
 //第三方包
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
