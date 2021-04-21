@@ -1,9 +1,15 @@
 <template>
   <div class="home">
     <div class="basic-info">
-      <InfoCard v-for="i in 3" :key="i"></InfoCard>
+      <InfoCard
+        v-for="i in cardInfoList"
+        :key="i.label"
+        :cardInfo="i"
+      ></InfoCard>
     </div>
-    <div class="line"></div>
+    <div class="line">
+      
+    </div>
     <div class="chart-card"></div>
     <div class="tabel"></div>
   </div>
@@ -15,7 +21,14 @@ import { getHomeData } from "../../api/home";
 import InfoCard from "./components/InfoCard";
 export default {
   data() {
-    return {};
+    return {
+      cardInfoList: [
+        { label: "New Visite", num: 102400, icon: "peoples" },
+        { label: "Messages", num: 81212, icon: "message" },
+        { label: "Purchases", num: 9280, icon: "money" },
+        { label: "Shoppings", num: 13600, icon: "shopping" },
+      ],
+    };
   },
   components: { Echart, InfoCard },
   mounted() {
@@ -36,7 +49,7 @@ export default {
 <style scoped lang="scss">
 .home {
   height: 100%;
-  background-color: #f0f2f5;
+  // background-color: #f0f2f5;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
