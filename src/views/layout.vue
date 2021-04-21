@@ -29,4 +29,7 @@ export default {
 .el-header {
   background-color: #333;
 }
+.el-main {
+  background-color: #f0f2f5;
+}
 </style>
