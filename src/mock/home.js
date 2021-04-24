@@ -1,22 +1,38 @@
 import Mock from "mockjs";
 
 export default {
-  getHomeData: () => {
+  getHomeLineChartData: () => {
     return {
       code: 20000,
       data: {
-        videoData: [
+        lineData: [
           {
-            name: "SpringBoot",
-            value: Mock.Random.float(1000, 10000, 0, 2),
+            name: "Mon",
+            value: 150,
           },
           {
-            name: "VUE",
-            value: Mock.Random.float(1000, 10000, 0, 2),
+            name: "Tue",
+            value: 230,
           },
           {
-            name: "ES6",
-            value: Mock.Random.float(1000, 10000, 0, 2),
+            name: "Wed",
+            value: 224,
+          },
+          {
+            name: "Thu",
+            value: 216,
+          },
+          {
+            name: "Fri",
+            value: 135,
+          },
+          {
+            name: "Sat",
+            value: 147,
+          },
+          {
+            name: "Sun",
+            value: 260,
           },
         ],
       },

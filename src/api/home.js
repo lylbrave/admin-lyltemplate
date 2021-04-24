@@ -1,8 +1,8 @@
 import http from "./axiosInstance";
 
-export function getHomeData(query) {
+export function getHomeLineChartData(query) {
   return http({
-    url: "/home/getData",
+    url: "/home/getHomeLineChartData",
     method: "get",
     params: query,
   });

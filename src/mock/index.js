@@ -6,4 +6,4 @@ Mock.setup({
   timeout: "200-600",
 });
 //首页相关
-Mock.mock(new RegExp("home/getData"), "get", homeApi.getHomeData);
+Mock.mock(new RegExp("home/getHomeLineChartData"), "get", homeApi.getHomeLineChartData);

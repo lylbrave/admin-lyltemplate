@@ -3,7 +3,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import * as echarts from 'echarts';
+import * as echarts from "echarts";
 export default {
   props: {
     chartData: {
@@ -21,18 +21,20 @@ export default {
       default: true,
     },
   },
-  computed: {
-    options() {
-      this.isAxisChart ? this.axisOption : this.normalOption;
-    },
-  },
   data() {
     return {
       echart: null,
+      options: {},
       axisOption: {
         xAxis: {
           type: "category",
           data: [],
+        },
+        grid: {
+          left: "5%",
+          right: "5%",
+          bottom: 30,
+          top: 30,
         },
         yAxis: [
           {
@@ -49,7 +51,12 @@ export default {
   },
   components: {},
   mounted() {
-    window.addEventListener("resize", this.resizChart);
+    this.$nextTick(async () => {
+      this.options = this.isAxisChart ? this.axisOption : this.normalOption;
+      await this.initChartData();
+      this.initChart();
+      window.addEventListener("resize", this.resizChart);
+    });
   },
   destroyed() {
     window.removeEventListener("resize", this.resizChart);
@@ -70,7 +77,10 @@ export default {
     初始化图表数据 */
     initChartData() {
       if (this.isAxisChart) {
-        console.log("axis");
+        this.axisOption.xAxis.data = this.chartData.xData;
+        this.axisOption.series = this.chartData.series;
+        console.log(this.axisOption);
+        console.log(this.chartData.series);
       } else {
         console.log("normal");
       }

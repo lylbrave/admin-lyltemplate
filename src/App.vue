@@ -12,5 +12,6 @@
   text-align: center;
   color: $theme-color;
   height: 100vh;
+  overflow: hidden;
 }
 </style>
