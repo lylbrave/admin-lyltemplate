@@ -30,7 +30,8 @@ export default {
   background-color: #333;
 }
 .el-main {
-   height: 1000px;
+  height: 100%;
+  overflow-y:auto ;
   background-color: #f0f2f5;
 }
 </style>

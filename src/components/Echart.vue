@@ -1,11 +1,14 @@
 <template>
-  <div style="height: 100%" ref="echart">echart</div>
+  <div style="height: 100%" :ref="'echart' + index">echart</div>
 </template>
 
 <script type="text/ecmascript-6">
 import * as echarts from "echarts";
 export default {
   props: {
+    index: {
+      type: Number,
+    },
     chartData: {
       type: Object,
       default() {
@@ -15,16 +18,22 @@ export default {
         };
       },
     },
-    //是否需要坐标轴
-    isAxisChart: {
+    //是否是曲线或柱状图
+    isALineBurChart: {
       type: Boolean,
       default: true,
+    },
+    //雷达图
+    isRadarChart: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
     return {
       echart: null,
       options: {},
+      //曲线或柱状图配置项
       axisOption: {
         xAxis: {
           type: "category",
@@ -43,17 +52,26 @@ export default {
         ],
         series: [],
       },
-
       normalOption: {
         series: [],
+      },
+      //雷达图配置项
+      radarOption: {
+        title: {
+          text: "",
+        },
+        radar: { indicator: [] },
+        legend: {
+          data: [],
+        },
       },
     };
   },
   components: {},
   mounted() {
     this.$nextTick(async () => {
-      this.options = this.isAxisChart ? this.axisOption : this.normalOption;
       await this.initChartData();
+      this.getOption();
       this.initChart();
       window.addEventListener("resize", this.resizChart);
     });
@@ -63,26 +81,40 @@ export default {
   },
   methods: {
     /**
+     * 配置兼容
+     */
+    getOption() {
+      if (this.isALineBurChart) {
+        this.option = this.axisOption;
+      } else if (this.isRadarChart) {
+        this.option = this.radarOption;
+      }
+    },
+    /**
      * 初始化图表
      */
     initChart() {
       if (this.echart) {
         this.echart.setOption(this.options);
       } else {
-        this.echart = echarts.init(this.$refs.echart);
+        this.echart = echarts.init(this.$refs['echart'+this.index]);
         this.echart.setOption(this.options);
       }
     },
     /**
     初始化图表数据 */
     initChartData() {
-      if (this.isAxisChart) {
+      if (this.isALineBurChart) {
         this.axisOption.xAxis.data = this.chartData.xData;
         this.axisOption.series = this.chartData.series;
-        console.log(this.axisOption);
-        console.log(this.chartData.series);
-      } else {
-        console.log("normal");
+      } else if (this.isRadarChart) {
+        this.radarOption.title.text = "基础雷达图";
+        this.radarOption.legend.data = [
+          "预算分配（Allocated Budget）",
+          "实际开销（Actual Spending）",
+        ];
+        this.radarOption.radar = this.chartData.radar;
+        this.radarOption.series = this.chartData.series;
       }
     },
     /**
