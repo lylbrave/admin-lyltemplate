@@ -15,3 +15,19 @@ export function getRadarData(query) {
     params: query,
   });
 }
+//请求饼图数据
+export function getPieData(query) {
+  return http({
+    url: "/home/getPieData",
+    method: "get",
+    params: query,
+  });
+}
+//请求柱状图数据
+export function getBarData(query) {
+  return http({
+    url: "/home/getBarData",
+    method: "get",
+    params: query,
+  });
+}

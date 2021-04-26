@@ -9,23 +9,33 @@
     </div>
     <div class="line-chart">
       <Echart
-        :index="1"
         v-if="lineChartData.xData.length"
+        chartType="line"
         :chartData="lineChartData"
       ></Echart>
     </div>
     <div class="chart-card">
       <div class="item">
         <Echart
-          :index="2"
           v-if="radarData.series[0].data.length"
-          :isALineBurChart="false"
-          :isRadarChart="true"
+          chartType="radar"
           :chartData="radarData"
         ></Echart>
       </div>
-      <div class="item"></div>
-      <div class="item"></div>
+      <div class="item">
+        <Echart
+          v-if="pieData.series[0].data.length"
+          chartType="pie"
+          :chartData="pieData"
+        ></Echart>
+      </div>
+      <div class="item">
+        <Echart
+          v-if="barChartData.xData.length"
+          chartType="bar"
+          :chartData="barChartData"
+        ></Echart>
+      </div>
     </div>
     <div class="tabel">ffff</div>
   </div>
@@ -33,7 +43,12 @@
 
 <script type="text/ecmascript-6">
 import Echart from "../../components/Echart";
-import { getHomeLineChartData, getRadarData } from "../../api/home";
+import {
+  getHomeLineChartData,
+  getRadarData,
+  getPieData,
+  getBarData,
+} from "../../api/home";
 import InfoCard from "./components/InfoCard";
 export default {
   data() {
@@ -44,17 +59,29 @@ export default {
         { label: "Purchases", num: 9280, icon: "money" },
         { label: "Shoppings", num: 13600, icon: "shopping" },
       ],
-      //曲线数据
+      //曲线图数据
       lineChartData: {
         //图表横坐标
         xData: [],
         //图表数据
         series: [{ data: [], type: "line", smooth: true }],
       },
-      //曲线数据
+      //柱状图数据
+      barChartData: {
+        //图表横坐标
+        xData: [],
+        //图表数据
+        series: [{ data: [], type: "bar", barWidth: "16px" }],
+      },
+      //雷达图数据
       radarData: {
         radar: { indicator: [] },
-        series: [{ name: "sss", type: "radar", data: [] }],
+        series: [{ data: [] }],
+      },
+      //饼图数据
+      pieData: {
+        legend: { data: [] },
+        series: [{ data: [] }],
       },
     };
   },
@@ -62,6 +89,8 @@ export default {
   mounted() {
     this._getHomeLineChartData();
     this._getRadarData();
+    this._getPieData();
+    this._getBarData();
   },
   methods: {
     /** ===================================曲线图======================================= */
@@ -103,6 +132,49 @@ export default {
       const { radarData, indicator } = data;
       this.radarData.radar.indicator = indicator;
       this.radarData.series[0].data = radarData;
+    },
+    /** ===================================饼图======================================= */
+    /**
+     * 获取饼图数据
+     */
+    async _getPieData() {
+      let res = await getPieData();
+      if (res.code === 20000) {
+        this.dealPieData(res.data);
+      }
+    },
+    /**
+     * 处理饼图数据
+     */
+    dealPieData(data) {
+      const { pieData } = data;
+      this.pieData.legend.data = [];
+      this.pieData.series[0].data = pieData;
+      pieData.forEach((item) => {
+        this.pieData.legend.data.push(item.name);
+      });
+    },
+    /** ===================================柱状图======================================= */
+    /**
+     * 获取柱状图数据
+     */
+    async _getBarData() {
+      let res = await getBarData();
+      if (res.code === 20000) {
+        this.dealBarData(res.data);
+      }
+    },
+    /***
+     * 处理柱状图数据
+     */
+    dealBarData(data) {
+      const { barData } = data;
+      this.barChartData.xData = [];
+      this.barChartData.series[0].data = [];
+      barData.forEach((item) => {
+        this.barChartData.xData.push(item.name);
+        this.barChartData.series[0].data.push(item.value);
+      });
     },
   },
 };

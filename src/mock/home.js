@@ -63,4 +63,32 @@ export default {
       },
     };
   },
+  getPieData: () => {
+    return {
+      code: 20000,
+      data: {
+        pieData: [
+          { value: 320, name: "Industries" },
+          { value: 240, name: "Technology" },
+          { value: 149, name: "Forex" },
+          { value: 100, name: "Gold" },
+          { value: 59, name: "Forecasts" },
+        ],
+      },
+    };
+  },
+  getBarData: () => {
+    return {
+      code: 20000,
+      data: {
+        barData: [
+          { value: 320, name: "Industries" },
+          { value: 240, name: "Technology" },
+          { value: 149, name: "Forex" },
+          { value: 100, name: "Gold" },
+          { value: 59, name: "Forecasts" },
+        ],
+      },
+    };
+  },
 };
