@@ -119,7 +119,6 @@ export default {
   components: {},
   mounted() {
     this.$nextTick(async () => {
-      console.log(this.chartType);
       this.getOption();
       await this.initChartData();
       this.initChart();
@@ -154,7 +153,7 @@ export default {
       }
     },
     /**
-    初始化图表数据 */
+    初始化图表数据及图表配置 */
     initChartData() {
       if (this.chartType == "line") {
         this.axisOption.xAxis.data = this.chartData.xData;
@@ -163,7 +162,6 @@ export default {
         this.radarOption.radar.indicator = this.chartData.radar.indicator;
         this.radarOption.series[0].data = this.chartData.series[0].data;
       } else if (this.chartType == "pie") {
-        console.log(this.chartData);
         this.pieOption.legend.data = this.chartData.legend.data;
         this.pieOption.series[0].data = this.chartData.series[0].data;
       } else if (this.chartType == "bar") {
@@ -176,7 +174,6 @@ export default {
           bottom: "3%",
           containLabel: true,
         };
-        console.log(this.axisOption);
       }
     },
     /**
