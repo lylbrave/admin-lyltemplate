@@ -37,19 +37,26 @@
         ></Echart>
       </div>
     </div>
-    <div class="tabel">ffff</div>
+    <div class="table">
+      <div class="table-wrap">
+        <Table :columns="columns"></Table>
+      </div>
+      <div class="info">22</div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+import InfoCard from "./components/InfoCard";
 import Echart from "../../components/Echart";
+import Table from "../../components/Table";
 import {
   getHomeLineChartData,
   getRadarData,
   getPieData,
   getBarData,
 } from "../../api/home";
-import InfoCard from "./components/InfoCard";
+
 export default {
   data() {
     return {
@@ -58,6 +65,15 @@ export default {
         { label: "Messages", num: 81212, icon: "message" },
         { label: "Purchases", num: 9280, icon: "money" },
         { label: "Shoppings", num: 13600, icon: "shopping" },
+      ],
+      //表格表头信息
+      columns: [
+        { label: "date", name: "日期", width: "150px" },
+        { label: "name", name: "姓名", width: "120px" },
+        { label: "province", name: "省份", width: "150px" },
+        { label: "city", name: "区域", width: "150px" },
+        { label: "address", name: "地址", width: "150px" },
+        { label: "zip", name: "邮编", width: "150px" },
       ],
       //曲线图数据
       lineChartData: {
@@ -85,7 +101,7 @@ export default {
       },
     };
   },
-  components: { Echart, InfoCard },
+  components: { Echart, InfoCard, Table },
   mounted() {
     this._getHomeLineChartData();
     this._getRadarData();
@@ -182,7 +198,8 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  height: 1000px;
+  min-height: 1300px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -197,9 +214,26 @@ export default {
   }
   .chart-card {
     height: 363px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     .item {
+      width: 30%;
+      background-color: #fff;
+    }
+  }
+  .table {
+    height: 363px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .table-wrap {
+      height: 100%;
+      width: 65%;
+      background-color: #fff;
+    }
+    .info {
+      height: 100%;
       width: 30%;
       background-color: #fff;
     }
