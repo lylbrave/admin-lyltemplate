@@ -1,13 +1,12 @@
 <template>
   <el-table :data="tableData" style="width: 100%" max-height="363">
-    <el-table-column
-      v-for="item in columns"
-      :key="item.label"
-      :prop="item.label"
-      :label="item.name"
-      :width="item.width"
-    >
+    <el-table-column prop="date" label="日期" width="150"> </el-table-column>
+    <el-table-column prop="name" label="姓名" width="120"> </el-table-column>
+    <el-table-column prop="province" label="省份" width="120">
     </el-table-column>
+    <el-table-column prop="city" label="市区" width="120"> </el-table-column>
+    <el-table-column prop="address" label="地址" width="300"> </el-table-column>
+    <el-table-column prop="zip" label="邮编" width="120"> </el-table-column>
 
     <el-table-column fixed="right" label="操作" width="120">
       <template slot-scope="scope">
@@ -25,11 +24,6 @@
 
 <script>
 export default {
-  props: {
-    columns: {
-      type: Array,
-    },
-  },
   created() {
     console.log(this.columns);
   },
@@ -38,7 +32,7 @@ export default {
       tableData: [
         {
           date: "2016-05-03",
-          name: "王小虎",
+          name: "王小虎1",
           province: "上海",
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",
@@ -46,7 +40,7 @@ export default {
         },
         {
           date: "2016-05-02",
-          name: "王小虎",
+          name: "王小虎2",
           province: "上海",
           city: "普陀区",
           address: "上海市普陀区金沙江路 1518 弄",

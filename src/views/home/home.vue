@@ -39,7 +39,7 @@
     </div>
     <div class="table">
       <div class="table-wrap">
-        <Table :columns="columns"></Table>
+        <Table></Table>
       </div>
       <div class="info">22</div>
     </div>
@@ -65,15 +65,6 @@ export default {
         { label: "Messages", num: 81212, icon: "message" },
         { label: "Purchases", num: 9280, icon: "money" },
         { label: "Shoppings", num: 13600, icon: "shopping" },
-      ],
-      //表格表头信息
-      columns: [
-        { label: "date", name: "日期", width: "150px" },
-        { label: "name", name: "姓名", width: "120px" },
-        { label: "province", name: "省份", width: "150px" },
-        { label: "city", name: "区域", width: "150px" },
-        { label: "address", name: "地址", width: "150px" },
-        { label: "zip", name: "邮编", width: "150px" },
       ],
       //曲线图数据
       lineChartData: {
