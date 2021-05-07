@@ -41,7 +41,7 @@
       <div class="table-wrap">
         <Table></Table>
       </div>
-      <div class="info">22</div>
+      <div class="info"><BoxCard></BoxCard></div>
     </div>
   </div>
 </template>
@@ -49,7 +49,8 @@
 <script type="text/ecmascript-6">
 import InfoCard from "./components/InfoCard";
 import Echart from "../../components/Echart";
-import Table from "../../components/Table";
+import Table from "./components/Table";
+import BoxCard from "@/views/home/components/BoxCard";
 import {
   getHomeLineChartData,
   getRadarData,
@@ -92,7 +93,7 @@ export default {
       },
     };
   },
-  components: { Echart, InfoCard, Table },
+  components: { Echart, InfoCard, Table, BoxCard },
   mounted() {
     this._getHomeLineChartData();
     this._getRadarData();

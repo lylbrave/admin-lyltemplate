@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    default-active="2"
+    :default-active="activeMenu"
     class="el-menu-vertical-demo"
     @open="handleOpen"
     @close="handleClose"
@@ -47,7 +47,7 @@ export default {
     return {
       asideMenu: [
         {
-          path: "/",
+          path: "/home",
           name: "home",
           label: "首页",
           icon: "s-home",
@@ -91,6 +91,12 @@ export default {
     ...mapState({
       isCollapse: (state) => state.menu.isCollapse,
     }),
+    //当前选中的目录
+    activeMenu() {
+      const route = this.$route;
+      const { path } = route;
+      return path;
+    },
   },
   methods: {
     /**

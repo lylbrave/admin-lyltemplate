@@ -3,7 +3,7 @@ export default {
     menu: [],
     isCollapse: "false",
     //当前选中的菜单
-    currentMenu: null,
+    currentMenu: { icon: "s-home", label: "首页", name: "home", path: "/home" },
     tabLists: [
       {
         path: "/",
@@ -17,11 +17,12 @@ export default {
     //选择目录
     selectMenu(state, val) {
       if (val.name !== "home") {
+        console.log(val);
         state.currentMenu = val;
         let res = state.tabLists.findIndex((item) => item.name === val.name);
         res == -1 ? state.tabLists.push(val) : "";
       } else {
-        state.currentMen = null;
+        state.currentMenu = null;
       }
     },
     //删除标签
