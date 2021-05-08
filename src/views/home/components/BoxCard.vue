@@ -7,7 +7,8 @@
       />
     </div>
     <div class="content">
-      <div style="padding-top: 35px" class="progress-item">
+      <Thumb :image="headPhoto" class="thumb"></Thumb>
+      <div style="padding-top: 30px" class="progress-item">
         <span>Vue</span>
         <el-progress :percentage="70" />
       </div>
@@ -24,17 +25,26 @@
 </template>
 
 <script type="text/ecmascript-6">
+import Thumb from "./Thumb";
 export default {
   data() {
-    return {};
+    return { headPhoto: require("@/assets/images/user.jpeg") };
   },
-  components: {},
+  components: { Thumb },
 };
 </script>
 
 <style scoped lang="scss">
 .box-card {
   position: relative;
+  .thumb {
+    position: absolute;
+    width: 60px;
+    left: 40px;
+    top: 45%;
+    background-color: #fff;
+    border: 2px solid #ffffff;
+  }
   .img-wrap {
     height: 200px;
     overflow: hidden;
