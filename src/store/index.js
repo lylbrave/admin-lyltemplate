@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import menu from "./menu/index";
+import user from "./user/index";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -9,5 +10,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     menu,
+    user
   },
 });
