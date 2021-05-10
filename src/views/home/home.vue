@@ -99,6 +99,7 @@ export default {
     this._getRadarData();
     this._getPieData();
     this._getBarData();
+    this.$openLoading()
   },
   methods: {
     /** ===================================曲线图======================================= */
