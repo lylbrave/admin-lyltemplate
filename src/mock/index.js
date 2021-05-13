@@ -14,3 +14,4 @@ Mock.mock(new RegExp("home/getBarData"), "get", homeApi.getBarData);
 //登录和登出
 Mock.mock(new RegExp("user/login"), "post", userApi.getLogin);
 Mock.mock(new RegExp("user/logout"), "post", userApi.getLoginOut);
+Mock.mock(new RegExp("user/info"), "get", userApi.getUserInfo);
