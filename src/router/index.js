@@ -29,7 +29,12 @@ router.beforeEach(async (to, from, next) => {
       await store.dispatch("user/getInfo")
       next(to.path)
     } else {
-      next();
+      //判断当前用户是否具有模块的权限
+      let pathArr = to.path.split('/')
+      let canNext = store.state.user.menuList.some(item => {
+        return item.name == pathArr[1]
+      })
+      canNext ? next() : next("/login")
     }
   }
 });
