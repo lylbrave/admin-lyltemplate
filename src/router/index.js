@@ -7,32 +7,10 @@ import store from "@/store"
 Vue.use(VueRouter);
 
 const routes = [{
-    path: "/login",
-    name: "login",
-    component: () => import("@/views/login/login"),
-  },
-  {
-    path: "/",
-    component: () => import("@/views/layout"),
-    redirect: "/home",
-    children: [{
-        path: "/home",
-        name: "home",
-        component: () => import("@/views/home/home"),
-      },
-      {
-        path: "/video",
-        name: "video",
-        component: () => import("@/views/video/video"),
-      },
-      {
-        path: "/userManager",
-        name: "userManager",
-        component: () => import("@/views/userManager/user"),
-      },
-    ],
-  },
-];
+  path: "/login",
+  name: "login",
+  component: () => import("@/views/login/login"),
+}, ];
 
 const router = new VueRouter({
   routes,
@@ -48,11 +26,12 @@ router.beforeEach(async (to, from, next) => {
     if (!hasToken) return next("/login");
     //判断是否是刷新页面
     if (store.state.user.menuList.length == 0) {
-      await store.dispatch('user/getInfo')
+      await store.dispatch("user/getInfo")
+      next(to.path)
+    } else {
+      next();
     }
-    next();
   }
-  next();
 });
 
 export default router;
