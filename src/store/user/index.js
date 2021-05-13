@@ -8,7 +8,7 @@ import {
   setToken,
   removeToken
 } from '@/utils/auth'
-
+import router from "@/router";
 const state = {
   token: getToken(),
   name: '',
@@ -22,7 +22,6 @@ const state = {
 }
 
 const mutations = {
-
   SET_TOKEN: (state, token) => {
     state.token = token
   },
@@ -41,6 +40,24 @@ const mutations = {
   SET_MENULIST(state, val) {
     state.menuList = val;
   },
+  SET_ROUTERlIST(state, list) {
+    let routerList = [{
+      path: "/",
+      component: () => import("@/views/layout"),
+      redirect: "/home",
+      children: [],
+    }]
+    list.forEach(item => {
+      routerList[0].children.push({
+        path: `/${item}`,
+        name: item,
+        component: () => import(`@/views/${item}/${item}`)
+      })
+    })
+    state.routerList = routerList;
+    router.addRoutes(routerList)
+    console.log(router)
+  }
 }
 
 const actions = {
@@ -86,26 +103,30 @@ const actions = {
           name,
           avatar,
           introduction,
-          menuList
+          menuList,
+          routerList
         } = data
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
         }
-        console.log(menuList)
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)
         //设置登录人员的目录列表
         commit('SET_MENULIST', menuList)
+        //设置登录人员的路由列表
+        commit('SET_ROUTERlIST', routerList)
+        console.log(state)
         resolve(data)
       }).catch(error => {
         reject(error)
       })
     })
   },
-
-  // user logout
+  /**
+   * 登出
+   */
   logout({
     commit,
     state,
