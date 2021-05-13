@@ -1,10 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { getToken } from "../utils/auth";
+import {
+  getToken
+} from "../utils/auth";
+import store from "@/store"
 Vue.use(VueRouter);
 
-const routes = [
-  {
+const routes = [{
     path: "/login",
     name: "login",
     component: () => import("@/views/login/login"),
@@ -13,8 +15,7 @@ const routes = [
     path: "/",
     component: () => import("@/views/layout"),
     redirect: "/home",
-    children: [
-      {
+    children: [{
         path: "/home",
         name: "home",
         component: () => import("@/views/home/home"),
@@ -38,14 +39,17 @@ const router = new VueRouter({
 });
 
 //全局守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   //这里是对登录后的值进行判断
   const hasToken = getToken();
   if (to.path === "/login") {
     next();
   } else {
-    console.log(hasToken);
     if (!hasToken) return next("/login");
+    //判断是否是刷新页面
+    if (store.state.user.menuList.length == 0) {
+      await store.dispatch('user/getInfo')
+    }
     next();
   }
   next();
