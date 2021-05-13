@@ -44,37 +44,7 @@
 import { mapState } from "vuex";
 export default {
   data() {
-    return {
-      asideMenu: [
-        {
-          path: "/home",
-          name: "home",
-          label: "首页",
-          icon: "s-home",
-        },
-        {
-          path: "/video",
-          name: "video",
-          label: "视频管理",
-          icon: "video-play",
-        },
-        {
-          path: "/userManager",
-          name: "userManager",
-          label: "用户管理",
-          icon: "user",
-        },
-        {
-          label: "其他",
-          name: "other",
-          icon: "orange",
-          children: [
-            { path: "/page1", name: "page1", label: "页面1" },
-            { path: "/page2", name: "page2", label: "页面2" },
-          ],
-        },
-      ],
-    };
+    return {};
   },
   components: {},
   computed: {
@@ -90,6 +60,7 @@ export default {
     },
     ...mapState({
       isCollapse: (state) => state.menu.isCollapse,
+      asideMenu: (state) => state.user.menuList,
     }),
     //当前选中的目录
     activeMenu() {
