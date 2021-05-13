@@ -170,13 +170,13 @@ export default {
         if (valid) {
           this.$store
             .dispatch("user/login", this.loginForm)
-            .then(() => {
+            .then(async () => {
+              await this.$store.dispatch("user/getInfo");
               this.$router.push({
-                path:"/",
+                path: "/",
               });
             })
-            .catch(() => {
-            });
+            .catch(() => {});
         } else {
           console.log("error submit!!");
           return false;
