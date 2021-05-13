@@ -41,6 +41,9 @@ const mutations = {
     state.menuList = val;
   },
   SET_ROUTERlIST(state, list) {
+    if(list.length==0){
+
+    }
     let routerList = [{
       path: "/",
       component: () => import("@/views/layout"),
@@ -136,6 +139,10 @@ const actions = {
       logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
+        //设置登录人员的目录列表
+        commit('SET_MENULIST', [])
+        //设置登录人员的路由列表
+        commit('SET_ROUTERlIST', [])
         removeToken()
         resolve()
       }).catch(error => {
@@ -162,10 +169,8 @@ const actions = {
     dispatch
   }, role) {
     const token = role + '-token'
-
     commit('SET_TOKEN', token)
     setToken(token)
-
     const {
       roles
     } = await dispatch('getInfo')
