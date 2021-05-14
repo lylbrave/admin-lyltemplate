@@ -7,13 +7,46 @@ const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   timeout: 5000, // request timeout
 });
-
+/**
+ * 过滤 option 中值为undefined,"",null的字段
+ */
+function filterOption(option) {
+  let params = {};
+  if (option instanceof Array) {
+    return option;
+  }
+  Object.keys(option).forEach(key => {
+    let item = option[key];
+    if (item !== void 0 && item !== '' && item !== null) {
+      params[key] = isString(item) ? item.trim() : item;
+    }
+    if (item === false) {
+      params[key] = item;
+    }
+  });
+  return params;
+}
 // request interceptor
 service.interceptors.request.use(
   (config) => {
+//    let {
+//     ...params
+//   } = config.params || {};
+   /**
+   * 过滤 请求参数中 值为undefined,"",null的字段
+   */
+//     params = filterOption(params || {})
+//    if (!!params) {
+//     Object.keys(params).forEach(key => {
+//       if (params[key] instanceof Array) {
+//         params[key] = params[key].join(',');
+//       }
+//     });
+//   }
     if (store.state.user.token) {
       config.headers["X-Token"] = getToken();
     }
+   
     console.log(config);
     return config;
   },
