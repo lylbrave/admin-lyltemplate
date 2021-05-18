@@ -39,6 +39,12 @@ export default {
             icon: "video-play",
           },
           {
+            path: "/paint",
+            name: "paint",
+            label: "画图",
+            icon: "picture-outline",
+          },
+          {
             path: "/userManager",
             name: "userManager",
             label: "用户管理",
@@ -61,7 +67,7 @@ export default {
             ],
           },
         ],
-        routerList: ['home', 'video', 'userManager', 'other']
+        routerList: ['home', 'video','paint', 'userManager', 'other']
       },
       "editor-token": {
         roles: ["editor"],
