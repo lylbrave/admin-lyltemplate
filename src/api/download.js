@@ -1,6 +1,4 @@
-
-
-import qs from "querystring";
+ import qs from "querystring";
 import { Message } from 'element-ui';
 // 导入接口地址
 // import {

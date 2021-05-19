@@ -20,13 +20,20 @@
           @click="changePenLine(line.value)"
           >{{ line.name }}</el-button
         >
+        <el-button @click="clearCanvas(cvs)">清除画布</el-button>
+        <el-button @click="savePic()">保存图片</el-button>
       </div>
     </div>
     <canvas
       id="canvas"
       ref="canvas"
       class="canvas"
-      @mousedown="canvasDown(cvs, canvas, $event)"
+      width="1200px"
+      height="550px"
+      @mousedown="canvasDown($event)"
+      @mousemove="canvasMove(cvs, $event)"
+      @mouseup="canvasUp"
+      @mouseout="canvasOut"
     ></canvas>
   </div>
 </template>
@@ -49,8 +56,14 @@ export default {
       ],
       canvas: null,
       cvs: null,
+      //画笔颜色
       penColor: "black",
+      //画笔粗细
       penWeight: 0,
+      isDrawing: false,
+      //开始坐标
+      lastX: 0,
+      lastY: 0,
     };
   },
   components: {},
@@ -68,38 +81,46 @@ export default {
     /**
      * 鼠标在canvas画布上点击事件
      */
-    canvasDown(cvs, canvas, e) {
-      console.log(e);
-      console.log(canvas.offsetLeft);
-      let start_x = e.clientX - canvas.offsetLeft ;
-      let start_y = e.clientY - canvas.offsetTop;
-      console.log(start_x, start_y);
-      cvs.beginPath(); //开始本次绘画
-      cvs.moveTo(start_x, start_y); //画笔起始点
-      /*设置画笔属性*/
-      cvs.lineCap = "round";
-      cvs.lineJoin = "round";
-      cvs.strokeStyle = this.penColor; //画笔颜色
-      cvs.lineWidth = this.penWeight; //画笔粗细
-      canvas.onmousemove = function (e) {
-        /*找到鼠标（画笔）的坐标*/
-        let move_x = e.clientX - canvas.offsetLeft;
-        let move_y = e.clientY - canvas.offsetTop ;
-        cvs.lineTo(move_x, move_y); //根据鼠标路径绘画
-        cvs.stroke(); //立即渲染
-      };
-      canvas.onmouseup = function (e) {
-        cvs.closePath(); //结束本次绘画
-        canvas.onmousemove = null;
-        canvas.onmouseup = null;
-      };
-      canvas.onmouseleave = function () {
-        cvs.closePath();
-        canvas.onmousemove = null;
-        canvas.onmouseup = null;
-      };
+    canvasDown(e) {
+      this.isDrawing = true;
+      [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
     },
-
+    canvasUp() {
+      this.isDrawing = false;
+    },
+    canvasOut() {
+      this.isDrawing = false;
+    },
+    /**
+     * 鼠标在canvas画布上移动事件
+     */
+    canvasMove(cvs, e) {
+      if (!this.isDrawing) return;
+      cvs.strokeStyle = this.penColor;
+      cvs.lineWidth = this.penWeight;
+      cvs.beginPath();
+      // 开始坐标
+      cvs.moveTo(this.lastX, this.lastY);
+      // 开始绘制
+      cvs.lineTo(e.offsetX, e.offsetY);
+      cvs.stroke();
+      [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+    },
+    /**
+     * 清除画布
+     */
+    clearCanvas(cvs) {
+      cvs.clearRect(0, 0, 1200, 550);
+    },
+    /**
+     * 保存图片
+     */
+    savePic() {
+      let image = this.canvas
+        .toDataURL("image/png")
+        .replace("image/png", "image/octet-stream");
+      window.location.href = image;
+    },
     /**
      * 改变画笔颜色
      */
@@ -136,8 +157,6 @@ export default {
     }
   }
   .canvas {
-    width: 100%;
-    height: 90%;
     border: 2px solid #ccc;
   }
 }

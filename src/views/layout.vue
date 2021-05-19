@@ -31,6 +31,7 @@ export default {
 }
 .el-main {
   height: 100%;
+  width:100%;
   overflow-y:auto ;
   background-color: #f0f2f5;
 }
