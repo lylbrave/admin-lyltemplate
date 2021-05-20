@@ -153,7 +153,7 @@ export default {
       background-color: #ecf5ff;
     }
     .tool-item {
-      margin-right: 10px;
+      margin-right: 20px;
     }
   }
   .canvas {
