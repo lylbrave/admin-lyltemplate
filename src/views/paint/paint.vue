@@ -145,6 +145,7 @@ export default {
   height: 100%;
   overflow: hidden;
   .tools {
+    
     display: flex;
     height: 60px;
     .check {
