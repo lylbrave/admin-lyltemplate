@@ -38,6 +38,7 @@ export default {
     width: 68px;
     height: 40px;
     line-height: 40px;
+    text-align: center;
     font-size: 28px;
     margin-bottom: 8px;
     &:hover {

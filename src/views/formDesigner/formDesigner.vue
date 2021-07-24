@@ -32,7 +32,7 @@ export default {
     border-right: 1px solid #ccc;
   }
   .property {
-    width: 400px;
+    width: 280px;
   }
 }
 </style>
