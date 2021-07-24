@@ -38,7 +38,7 @@ export default {
     width: 68px;
     height: 40px;
     line-height: 40px;
-    font-size: 30px;
+    font-size: 28px;
     margin-bottom: 8px;
     &:hover {
       border: 1px solid #0089ff;

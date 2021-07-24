@@ -36,7 +36,7 @@ export default {
       heighlist: [
         {
           name: "布局容器",
-          icon: "",
+          icon: "layout",
         },
       ],
       basiclist: [
@@ -46,19 +46,19 @@ export default {
         },
         {
           name: "单选",
-          icon: "",
+          icon: "radio",
         },
         {
           name: "多选",
-          icon: "",
+          icon: "checkbox",
         },
         {
           name: "日期",
-          icon: "",
+          icon: "date",
         },
         {
           name: "数值",
-          icon: "",
+          icon: "number",
         },
       ],
     };
