@@ -30,8 +30,9 @@ router.beforeEach(async (to, from, next) => {
       next(to.path)
     } else {
       //判断当前用户是否具有模块的权限
+      console.log(store.state.user.routerList[0])
       let pathArr = to.path.split('/')
-      let canNext = store.state.user.menuList.some(item => {
+      let canNext = store.state.user.routerList[0].children.some(item => {
         return item.name == pathArr[1]
       })
       canNext ? next() : next("/login")

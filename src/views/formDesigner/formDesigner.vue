@@ -1,5 +1,5 @@
 <template>
-  <div class="page">用户管理</div>
+  <div class="page">biaodan</div>
 </template>
 
 <script type="text/ecmascript-6">
