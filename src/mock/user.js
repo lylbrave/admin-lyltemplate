@@ -57,6 +57,12 @@ export default {
             icon: "coordinate",
           },
           {
+            path: "/dragAndDrop",
+            name: "dragAndDrop",
+            label: "拖拽",
+            icon: "coordinate",
+          },
+          {
             label: "其他",
             name: "other",
             icon: "orange",
@@ -104,7 +110,7 @@ export default {
         //     children: [],
         //   },
         // ],
-        routerList: ['home', 'video','paint', 'userManager','easyTake', 'formDesigner','other']
+        routerList: ['home', 'video','paint', 'userManager','easyTake', 'formDesigner','other','dragAndDrop']
       },
       "editor-token": {
         roles: ["editor"],
