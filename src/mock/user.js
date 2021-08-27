@@ -60,7 +60,7 @@ export default {
             path: "/dragAndDrop",
             name: "dragAndDrop",
             label: "拖拽",
-            icon: "coordinate",
+            icon: "thumb",
           },
           {
             label: "其他",
