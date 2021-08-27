@@ -4,11 +4,19 @@
     <div class="drag-area">
       <dragCom
         v-for="item in ballotBoxList"
+        :style="{ color: currentId == item.id ? 'blue' : '' }"
         :key="item.id"
-        :width="80"
-        :height="80"
+        @mousedown.native="mousedown(item.id)"
       >
-        <div>选票箱</div>
+        <div style="margin-right: 8px">选票箱</div>
+      </dragCom>
+      <dragCom
+        :style="{ color: currentId == item.id ? 'blue' : '' }"
+        v-for="item in voteList"
+        :key="item.id"
+        :isVote="true"
+      >
+        <div style="margin-right: 8px">{{ item.value }}</div>
       </dragCom>
     </div>
     <div>
@@ -28,15 +36,33 @@ export default {
           coordinates: "",
         },
       ],
+      voteList: [
+        {
+          id: 1,
+          value: 6,
+          coordinates: "",
+        },
+      ],
+      //当前拖拽的组合id
+      currentId: 1,
     };
   },
   components: {
     dragCom,
   },
   methods: {
+    mousedown(id) {
+      this.currentId = id;
+      console.log(this.currentId);
+    },
     addBallotBox() {
       this.ballotBoxList.push({
         id: this.ballotBoxList.length + 1,
+        coordinates: "",
+      });
+      this.voteList.push({
+        id: this.voteList.length + 1,
+        value: 6,
         coordinates: "",
       });
     },

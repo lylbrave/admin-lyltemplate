@@ -1,12 +1,5 @@
 <template>
-  <div
-    class="drag"
-    @touchstart.stop="hang"
-    @touchend.stop="drop"
-    @mousedown.stop="hang"
-    @mouseup.stop="drop"
-    @touchmove.stop="iosMove"
-  >
+  <div class="drag"  @mousedown.stop="hang" @mouseup.stop="drop">
     <slot></slot>
   </div>
 </template>
@@ -31,6 +24,10 @@ export default {
       type: Number,
       default: 0,
     },
+    isVote: {
+      type: Boolean,
+      default: false,
+    },
   },
   watch: {
     width(newWidth, oldWidth) {
@@ -50,11 +47,9 @@ export default {
     height(newHeight, oldHeight) {
       if (newHeight < oldHeight) return;
       if (this.top === 0) return;
-
       this.parent.width = this.parentWidth || this.elem.parentNode.offsetWidth;
       this.parent.height =
         this.parentHeight || this.elem.parentNode.offsetHeight;
-
       if (newHeight > this.parent.height - this.top) {
         const newTop = this.parent.height - this.height;
         this.top = newTop;
@@ -68,18 +63,14 @@ export default {
     left: 0,
     top: 0,
     elem: null,
-    isIos: false,
+
     parent: {
       width: 0,
       height: 0,
     },
   }),
   methods: {
-    iosMove(e) {
-      if (this.isIos) this.elementMove(e);
-    },
     elementMove(e) {
-      this.$emit("dragging");
       e.preventDefault();
       if (!e.pageX) {
         document.body.style.overflow = "hidden";
@@ -110,7 +101,7 @@ export default {
       this.top = newTop;
     },
     hang(e) {
-      this.$emit("activated");
+      this.$emit("drag");
       this.parent.width = this.parentWidth || this.elem.parentNode.offsetWidth;
       this.parent.height =
         this.parentHeight || this.elem.parentNode.offsetHeight;
@@ -121,12 +112,8 @@ export default {
         ? e.pageY - this.elem.offsetTop
         : e.changedTouches[0].pageY - this.elem.offsetTop;
       if (e.pageX) {
-        if (this.isIos) {
-          this.elem.addEventListener("touchmove", this.elementMove);
-        } else {
-          this.elem.addEventListener("mousemove", this.elementMove);
-          this.elem.addEventListener("mouseleave", this.drop);
-        }
+        this.elem.addEventListener("mousemove", this.elementMove);
+        this.elem.addEventListener("mouseleave", this.drop);
       } else {
         this.elem.addEventListener("touchmove", this.elementMove);
       }
@@ -141,9 +128,8 @@ export default {
     },
   },
   mounted() {
-    this.isIos =
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     this.elem = this.$el;
+    this.elem.style.left = this.isVote ? "60px" : "0";
   },
 };
 </script>
