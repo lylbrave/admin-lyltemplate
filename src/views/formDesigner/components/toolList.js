@@ -21,19 +21,19 @@ const toolList = [
     name: "多选",
     type: "checkbox",
     icon: "checkbox",
-    comSrc:'../../../components/formComponents/Input.vue'
+    comSrc:'Input'
   },
   {
     name: "日期",
     type: "date",
     icon: "date",
-    comSrc:'../../../components/formComponents/Input.vue'
+    comSrc:'Input'
   },
   {
     name: "数值",
     type: "number",
     icon: "number",
-    comSrc:'../../../components/formComponents/Input.vue'
+    comSrc:'Input'
   },
 ];
 export default toolList;
