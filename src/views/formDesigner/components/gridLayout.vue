@@ -5,7 +5,7 @@
         ref="gridlayout"
         :layout.sync="layout"
         :col-num="12"
-        :row-height="30"
+        :row-height="40"
         :is-draggable="true"
         :is-resizable="true"
         :vertical-compact="true"
@@ -20,7 +20,11 @@
           :h="item.h"
           :i="item.i"
         >
-          <span class="text">{{
+          <gridItemCom
+            v-if="item.component && item.component.comSrc"
+            :componentSrc="item.component.comSrc"
+          ></gridItemCom>
+          <span v-else class="text">{{
             item.component ? item.component.name : item.i
           }}</span>
         </grid-item>
@@ -31,7 +35,7 @@
 
 <script>
 import { GridLayout, GridItem } from "vue-grid-layout";
-
+import gridItemCom from "./gridCom.vue";
 let mouseXY = { x: null, y: null };
 let DragPos = { x: null, y: null, w: 2, h: 1, i: null };
 
@@ -39,20 +43,18 @@ export default {
   components: {
     GridLayout,
     GridItem,
+    gridItemCom,
   },
   data() {
     return {
       layout: [
         { x: 0, y: 0, w: 2, h: 2, i: "0" },
         { x: 2, y: 0, w: 2, h: 4, i: "1" },
-        { x: 4, y: 0, w: 2, h: 5, i: "2" },
+        { x: 4, y: 0, w: 2, h: 4, i: "2" },
         { x: 6, y: 0, w: 2, h: 3, i: "3" },
         { x: 8, y: 0, w: 2, h: 3, i: "4" },
         { x: 10, y: 0, w: 2, h: 3, i: "5" },
-        { x: 0, y: 5, w: 2, h: 5, i: "6" },
-        { x: 2, y: 5, w: 2, h: 5, i: "7" },
-        { x: 4, y: 5, w: 2, h: 5, i: "8" },
-        { x: 5, y: 10, w: 4, h: 3, i: "9" },
+      
       ],
     };
   },
@@ -72,7 +74,6 @@ export default {
       let parentRect = document
         .getElementById("content")
         .getBoundingClientRect();
-      console.log(parentRect);
       let mouseInGrid = false;
       if (
         mouseXY.x > parentRect.left &&
@@ -232,7 +233,6 @@ export default {
   left: 0;
   right: 0;
   margin: auto;
-  line-height: 100%;
   width: 100%;
 }
 
