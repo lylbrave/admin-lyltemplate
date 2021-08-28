@@ -1,6 +1,13 @@
 <template>
   <div class="page">
-    <div class="icon">
+    <div
+      class="icon"
+      @drag="handleDrag"
+      @dragend="handleDragend"
+      @click="handleClick(name)"
+      draggable="true"
+      unselectable="on"
+    >
       <svg-icon :icon-class="icon" class-name="card-panel-icon" />
     </div>
     <div class="name">{{ name }}</div>
@@ -21,6 +28,17 @@ export default {
     return {};
   },
   components: {},
+  methods: {
+    handleDrag() {
+      this.$emit("handleDrag");
+    },
+    handleDragend() {
+      this.$emit("handleDragend");
+    },
+    handleClick(name){
+      this.$emit('handleClick',name)
+    }
+  },
 };
 </script>
 

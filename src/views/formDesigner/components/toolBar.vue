@@ -10,6 +10,8 @@
             :key="i.name"
             :name="i.name"
             :icon="i.icon"
+            @handleDrag="handleDrag"
+            @handleDragend="handleDragend"
           />
         </div>
       </div>
@@ -21,6 +23,7 @@
             :key="i.name"
             :name="i.name"
             :icon="i.icon"
+            @handleClick="handleClick"
           />
         </div>
       </div>
@@ -64,6 +67,18 @@ export default {
     };
   },
   components: { Control },
+  methods: {
+    handleDrag() {
+      this.$emit("handleDrag");
+    },
+    handleDragend() {
+      this.$emit("handleDragend");
+    },
+    handleClick(name){
+      
+      this.$emit('handleClick',name)
+    }
+  },
 };
 </script>
 
