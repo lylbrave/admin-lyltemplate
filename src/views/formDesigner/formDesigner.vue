@@ -24,11 +24,11 @@ export default {
   },
   components: { ToolBar, GridLayout },
   methods: {
-    handleDrag() {
-      this.$refs.gridwrap.drag();
+    handleDrag(itemCom) {
+      this.$refs.gridwrap.drag(itemCom);
     },
-    handleDragend() {
-      this.$refs.gridwrap.handleDragend();
+    handleDragend(itemCom) {
+      this.$refs.gridwrap.dragend(itemCom);
     },
     handleClick(name) {
       if (name === "布局容器") {
@@ -51,6 +51,7 @@ export default {
   }
   .content {
     flex: 1;
+    height: 100%;
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;

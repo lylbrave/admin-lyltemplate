@@ -4,24 +4,21 @@
       class="icon"
       @drag="handleDrag"
       @dragend="handleDragend"
-      @click="handleClick(name)"
+      @click="handleClick(item.name)"
       draggable="true"
       unselectable="on"
     >
-      <svg-icon :icon-class="icon" class-name="card-panel-icon" />
+      <svg-icon :icon-class="item.icon" class-name="card-panel-icon" />
     </div>
-    <div class="name">{{ name }}</div>
+    <div class="name">{{ item.name }}</div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
   props: {
-    name: {
-      type: String,
-    },
-    icon: {
-      type: String,
+    item: {
+      type: Object,
     },
   },
   data() {
@@ -30,14 +27,14 @@ export default {
   components: {},
   methods: {
     handleDrag() {
-      this.$emit("handleDrag");
+      this.$emit("handleDrag", this.item);
     },
     handleDragend() {
-      this.$emit("handleDragend");
+      this.$emit("handleDragend", this.item);
     },
-    handleClick(name){
-      this.$emit('handleClick',name)
-    }
+    handleClick(name) {
+      this.$emit("handleClick", name);
+    },
   },
 };
 </script>

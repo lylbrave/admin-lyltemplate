@@ -6,10 +6,9 @@
         <div class="title">常用控件</div>
         <div class="complist">
           <Control
-            v-for="i in basiclist"
+            v-for="i in toolList"
             :key="i.name"
-            :name="i.name"
-            :icon="i.icon"
+            :item="i"
             @handleDrag="handleDrag"
             @handleDragend="handleDragend"
           />
@@ -19,10 +18,9 @@
         <div class="title">高级控件</div>
         <div class="complist">
           <Control
-            v-for="i in heighlist"
+            v-for="i in layoutlist"
             :key="i.name"
-            :name="i.name"
-            :icon="i.icon"
+            :item="i"
             @handleClick="handleClick"
           />
         </div>
@@ -33,51 +31,30 @@
 
 <script type="text/ecmascript-6">
 import Control from "./control.vue";
+import toolList from './toolList' ;
 export default {
   data() {
     return {
-      heighlist: [
+      layoutlist: [
         {
           name: "布局容器",
           icon: "layout",
         },
       ],
-      basiclist: [
-        {
-          name: "单行文本",
-          icon: "input",
-        },
-        {
-          name: "单选",
-          icon: "radio",
-        },
-        {
-          name: "多选",
-          icon: "checkbox",
-        },
-        {
-          name: "日期",
-          icon: "date",
-        },
-        {
-          name: "数值",
-          icon: "number",
-        },
-      ],
+      toolList: toolList
     };
   },
   components: { Control },
   methods: {
-    handleDrag() {
-      this.$emit("handleDrag");
+    handleDrag(itemCom) {
+      this.$emit("handleDrag", itemCom);
     },
-    handleDragend() {
-      this.$emit("handleDragend");
+    handleDragend(itemCom) {
+      this.$emit("handleDragend", itemCom);
     },
-    handleClick(name){
-      
-      this.$emit('handleClick',name)
-    }
+    handleClick(name) {
+      this.$emit("handleClick", name);
+    },
   },
 };
 </script>

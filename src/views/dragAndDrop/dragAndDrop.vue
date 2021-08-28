@@ -3,17 +3,17 @@
     <!-- 可拖动的范围 -->
     <div class="drag-area">
       <dragCom
-        v-for="item in ballotBoxList"
+        v-for="(item,index) in ballotBoxList"
         :style="{ color: currentId == item.id ? 'blue' : '' }"
-        :key="item.id"
+        :key="index"
         @mousedown.native="mousedown(item.id)"
       >
         <div style="margin-right: 8px">选票箱</div>
       </dragCom>
       <dragCom
         :style="{ color: currentId == item.id ? 'blue' : '' }"
-        v-for="item in voteList"
-        :key="item.id"
+        v-for="(item,index) in voteList"
+        :key="index"
         :isVote="true"
       >
         <div style="margin-right: 8px">{{ item.value }}</div>
