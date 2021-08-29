@@ -27,6 +27,7 @@
           <span v-else class="text">{{
             item.component ? item.component.name : item.i
           }}</span>
+          <span class="remove" @click="removeItem(item.i)">x</span>
         </grid-item>
       </grid-layout>
     </div>
@@ -54,7 +55,6 @@ export default {
         { x: 6, y: 0, w: 2, h: 3, i: "3" },
         { x: 8, y: 0, w: 2, h: 3, i: "4" },
         { x: 10, y: 0, w: 2, h: 3, i: "5" },
-      
       ],
     };
   },
@@ -193,6 +193,10 @@ export default {
         } catch {}
       }
     },
+    removeItem: function (val) {
+      const index = this.layout.map((item) => item.i).indexOf(val);
+      this.layout.splice(index, 1);
+    },
   },
 };
 </script>
@@ -247,6 +251,12 @@ export default {
 
 .vue-grid-item .add {
   cursor: pointer;
+}
+.remove {
+    position: absolute;
+    right: 2px;
+    top: 0;
+    cursor: pointer;
 }
 
 .vue-draggable-handle {
